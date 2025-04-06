@@ -19,7 +19,8 @@ public class Invoce {
     /**
      * Muchas Facturas para un Client
      */
-    @ManyToOne
-    @JoinColumn(name = "id_client") //-> el nombre con el que se generara en la db
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_client")
+    //-> el nombre con el que se generara en la db
     private Client client; //-> en la db sale como client_id
 }
