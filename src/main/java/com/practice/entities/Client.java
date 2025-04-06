@@ -28,5 +28,6 @@ public class Client {
      */
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     // Crea tabla intermedia
+    @JoinColumn(name = "client_id")
     private List<Address> addresses = new ArrayList<>();
 }

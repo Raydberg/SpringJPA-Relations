@@ -1,6 +1,7 @@
 package com.practice.services.Impl;
 
 import com.practice.entities.Client;
+import com.practice.repositories.AddressRepository;
 import com.practice.repositories.ClientRepository;
 import com.practice.services.ClientService;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +15,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
+    private final AddressRepository addressRepository;
 
     @Override
     @Transactional(readOnly = true)
     public Optional<List<Client>> findAllClients() {
-        return Optional.of(clientRepository.findAll());
+        List<Client> clients = clientRepository.findAll();
+        return Optional.of(clients);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class ClientServiceImpl implements ClientService {
         if (!clientRepository.existsClientByName(client.getName())) {
             return clientRepository.saveAndFlush(client);
         }
-        throw new IllegalArgumentException("Client with ID " + client.getId() + " already exists");
+        throw new IllegalArgumentException("Client with name " + client.getName() + " already exists");
     }
 
     @Transactional
