@@ -39,6 +39,6 @@ public class Client {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
     public Set<Invoice> facturas = new HashSet<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
     private ClientDetails clientDetails;
 }

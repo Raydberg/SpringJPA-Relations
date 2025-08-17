@@ -6,20 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Entity
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "client_details")
-@ToString(exclude = "client")
-public class ClientDetails {
+@Entity
+@ToString(exclude = "estudiantes")
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "is_premiun")
-    private boolean isPremiun;
-    private Integer point;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "client_id")
-    private Client client;
+    private String name;
+    private String instructor;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Student> estudiantes = new HashSet<>();
 }

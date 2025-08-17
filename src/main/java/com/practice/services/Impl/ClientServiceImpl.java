@@ -5,6 +5,7 @@ import com.practice.repositories.AddressRepository;
 import com.practice.repositories.ClientRepository;
 import com.practice.services.ClientService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final AddressRepository addressRepository;
