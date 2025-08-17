@@ -9,8 +9,7 @@ import lombok.*;
 @Builder
 @Entity
 @Table(name = "invoces")
-@ToString
-public class Invoce {
+public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,8 +18,11 @@ public class Invoce {
     /**
      * Muchas Facturas para un Client
      */
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    // El dueño de la relacion
     @JoinColumn(name = "id_client")
     //-> el nombre con el que se generara en la db
     private Client client; //-> en la db sale como client_id
+
+
 }

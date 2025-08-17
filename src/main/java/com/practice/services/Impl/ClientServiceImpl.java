@@ -25,6 +25,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Client> findById(Long id) {
         if (clientRepository.existsById(id)) {
             return clientRepository.findById(id);

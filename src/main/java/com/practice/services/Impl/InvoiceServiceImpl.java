@@ -1,7 +1,7 @@
 package com.practice.services.Impl;
 
 import com.practice.entities.Client;
-import com.practice.entities.Invoce;
+import com.practice.entities.Invoice;
 import com.practice.repositories.ClientRepository;
 import com.practice.repositories.InvoiceRepository;
 import com.practice.services.InvoiceService;
@@ -20,13 +20,13 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<List<Invoce>> getAllInvoices() {
+    public Optional<List<Invoice>> getAllInvoices() {
         return Optional.of(invoiceRepository.findAll());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<Invoce> getById(Long id) {
+    public Optional<Invoice> getById(Long id) {
         if (invoiceRepository.existsById(id)) {
             return Optional.of(invoiceRepository.findById(id)).orElseThrow();
         }
@@ -35,12 +35,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     @Transactional
     @Override
-    public Invoce createBy(Invoce invoce) {
-        if (invoce.getClient() == null || invoce.getClient().getId() == null) {
+    public Invoice createBy(Invoice invoice) {
+        if (invoice.getClient() == null || invoice.getClient().getId() == null) {
             throw new IllegalArgumentException("Se requiere el ID del cliente");
         }
 
-        Long clientId = invoce.getClient().getId();
+        Long clientId = invoice.getClient().getId();
 
         if (!clientRepository.existsById(clientId)) {
             throw new IllegalArgumentException("No existe el cliente con ID " + clientId);
@@ -49,23 +49,23 @@ public class InvoiceServiceImpl implements InvoiceService {
         Client clientFromDB = clientRepository.findById(clientId)
                 .orElseThrow(() -> new IllegalArgumentException("No existe el cliente con ID " + clientId));
 
-        invoce.setClient(clientFromDB);
+        invoice.setClient(clientFromDB);
 
-        return invoiceRepository.saveAndFlush(invoce);
+        return invoiceRepository.saveAndFlush(invoice);
     }
 
     @Transactional
     @Override
-    public Optional<Invoce> updateById(Long id, Invoce invoce) {
+    public Optional<Invoice> updateById(Long id, Invoice invoice) {
         return invoiceRepository.findById(id).map(invoiceExist -> {
-            if (invoce.getDescription() != null) {
-                invoiceExist.setDescription(invoce.getDescription());
+            if (invoice.getDescription() != null) {
+                invoiceExist.setDescription(invoice.getDescription());
             }
-            if (invoce.getTotal() != null) {
-                invoiceExist.setTotal(invoce.getTotal());
+            if (invoice.getTotal() != null) {
+                invoiceExist.setTotal(invoice.getTotal());
             }
-            if (invoce.getClient() != null && invoce.getClient().getId() != null) {
-                Long clientId = invoce.getClient().getId();
+            if (invoice.getClient() != null && invoice.getClient().getId() != null) {
+                Long clientId = invoice.getClient().getId();
                 Client clientFromDb = clientRepository.findById(clientId).orElseThrow();
                 invoiceExist.setClient(clientFromDb);
             }

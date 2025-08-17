@@ -1,6 +1,6 @@
 package com.practice.controller;
 
-import com.practice.entities.Invoce;
+import com.practice.entities.Invoice;
 import com.practice.services.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +15,12 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
 
     @GetMapping("")
-    public ResponseEntity<List<Invoce>> getAllInvoices() {
+    public ResponseEntity<List<Invoice>> getAllInvoices() {
         return ResponseEntity.ok(invoiceService.getAllInvoices().orElseThrow());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Invoce> getById(@PathVariable Long id) {
+    public ResponseEntity<Invoice> getById(@PathVariable Long id) {
         return ResponseEntity.ok(invoiceService.getById(id).orElseThrow());
     }
 
@@ -34,13 +34,13 @@ public class InvoiceController {
      * }
      */
     @PostMapping("")
-    public ResponseEntity<Invoce> create(@RequestBody Invoce invoce) {
-        return ResponseEntity.ok(invoiceService.createBy(invoce));
+    public ResponseEntity<Invoice> create(@RequestBody Invoice invoice) {
+        return ResponseEntity.ok(invoiceService.createBy(invoice));
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Invoce> update(@PathVariable Long id, @RequestBody Invoce invoce) {
-        return ResponseEntity.ok(invoiceService.updateById(id, invoce).orElseThrow());
+    public ResponseEntity<Invoice> update(@PathVariable Long id, @RequestBody Invoice invoice) {
+        return ResponseEntity.ok(invoiceService.updateById(id, invoice).orElseThrow());
     }
 
     @DeleteMapping("{id}")
