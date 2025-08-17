@@ -1,5 +1,6 @@
 package com.practice.entities;
 
+import com.practice.annotations.IsExistDb;
 import com.practice.annotations.IsRequired;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -25,4 +26,7 @@ public class Product {
     private Integer price;
     @IsRequired
     private String description;
+    @IsExistDb
+    @IsRequired
+    private String sku;
 }

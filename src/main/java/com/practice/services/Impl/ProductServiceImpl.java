@@ -46,6 +46,8 @@ public class ProductServiceImpl implements ProductService {
                 p.setDescription(product.getDescription());
             if (product.getPrice() != null)
                 p.setPrice(product.getPrice());
+            if (product.getSku() != null && product.getSku().trim().isEmpty())
+                p.setSku(product.getSku());
             return productRepository.save(p);
         });
     }
@@ -56,5 +58,11 @@ public class ProductServiceImpl implements ProductService {
         productRepository.findById(id).ifPresentOrElse(productRepository::delete, () -> {
             throw new EntityNotFoundException("Producto con id " + id + "no encontrado");
         });
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsBySku(String sku) {
+        return productRepository.existsBySku(sku);
     }
 }
