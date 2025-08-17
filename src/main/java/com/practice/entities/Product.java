@@ -1,5 +1,6 @@
 package com.practice.entities;
 
+import com.practice.annotations.IsRequired;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,6 @@ public class Product {
     @Min(500)
     @Max(999)
     private Integer price;
-    @NotEmpty
+    @IsRequired
     private String description;
 }
