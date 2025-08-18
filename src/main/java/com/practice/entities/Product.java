@@ -2,6 +2,7 @@ package com.practice.entities;
 
 import com.practice.annotations.IsExistDb;
 import com.practice.annotations.IsRequired;
+import com.practice.config.Audit;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -29,4 +30,6 @@ public class Product {
     @IsExistDb
     @IsRequired
     private String sku;
+    @Embedded
+    private Audit audit;
 }
